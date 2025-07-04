@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Digital Pay Pixel</title>
+
+  <!-- ✅ Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
+    }
+    .container {
+      padding: 50px 20px;
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo {
+      width: 150px;
+      border-radius: 13px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 1.4em;
+      letter-spacing: 0.5px;
+      margin-bottom: 1px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 300px;
+      max-width: 100%;
+      margin: 7px 0;
+      padding: 18px;
+      background: linear-gradient(45deg, #0f2027, #203a43);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00d2ff;
+    }
+    .icon {
+      font-size: 1.2em;
+    }
+    .nomor-card {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin: 30px 0;
+      font-size: 1.3em;
+      letter-spacing: 2px;
+      width: 100%;
+      max-width: 400px;
+    }
+    #music-btn {
+      position: absolute;
+      top: 20px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+    h2 {
+      font-size: 0.9em;
+      letter-spacing: 3px;
+      margin-top: 80px;
+    }
+    .copyright {
+      margin-top: 10px;
+      font-size: 0.7em;
+      color: #aaa;
+    }
+    #qris-container img {
+      width: 250px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="music-btn" onclick="toggleMusic()">𝄞</button>
+  <audio id="background-music" loop>
+    <source src="https://files.catbox.moe/7oby7g.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="container">
+    <img src="https://files.catbox.moe/qhssu9.jpg" alt="Logo" class="logo" />
+    <h1>DIGITAL PAYMENT PIXEL</h1>
+
+    <div id="nomor-tampil" class="nomor-card">Pilih Metode Pembayaran</div>
+
+    <!-- ✅ Button Payment Center -->
+    <button class="btn" onclick="typeWriter('089508913768')">
+      <span class="icon">💰</span>
+      <span class="label">DANA</span>
+    </button>
+
+    <button class="btn" onclick="typeWriter('085191777037')">
+      <span class="icon">💳</span>
+      <span class="label">GOPAY</span>
+    </button>
+
+    <button class="btn" onclick="showQRIS()">
+      <span class="icon">🔗</span>
+      <span class="label">QRIS</span>
+    </button>
+
+    <div id="qris-container" style="display:none;">
+      <img src="https://files.catbox.moe/3xntvo.jpg" alt="QRIS">
+    </div>
+    
+    <h2>Setelah Transaksi Mohon Kirim Bukti Ke DM</h2>
+
+    <!-- ✅ Button Redirect WhatsApp di bawah teks -->
+    <button class="btn" onclick="redirectWa()">
+      <span class="icon">📲</span>
+      <span class="label">Konfirmasi WhatsApp</span>
+    </button>
+
+    <div class="copyright">© DIGITAL PAY PIXEL</div>
+  </div>
+
+  <script>
+    const music = document.getElementById('background-music');
+    const musicBtn = document.getElementById('music-btn');
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        musicBtn.innerHTML = '✔';
+      } else {
+        music.pause();
+        musicBtn.innerHTML = '✘';
+      }
+    }
+
+    function typeWriter(text) {
+      let i = 0;
+      let target = document.getElementById("nomor-tampil");
+      target.innerHTML = '';
+      document.getElementById("qris-container").style.display = "none"; // sembunyikan QRIS saat pilih DANA/GOPAY
+      function type() {
+        if (i < text.length) {
+          target.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, 100);
+        }
+      }
+      type();
+    }
+
+    function showQRIS() {
+      let qris = document.getElementById("qris-container");
+      let nomorTampil = document.getElementById("nomor-tampil");
+
+      if (qris.style.display === "none" || qris.style.display === "") {
+        qris.style.display = "block";
+        nomorTampil.innerHTML = "Scan QRIS di bawah ini";
+      } else {
+        qris.style.display = "none";
+        nomorTampil.innerHTML = "Pilih Metode Pembayaran";
+      }
+    }
+
+    function redirectWa() {
+      window.location.href = "https://wa.me/6283141306054?text=Halo%20admin%20saya%20sudah%20menyelesaikan%20transaksi%2C%20berikut%20bukti%20transaksi%20saya.";
+    }
+  </script>
+
+</body>
+</html>
